@@ -6,11 +6,11 @@ Es un panel aparte, con usuario y contraseña propios, para ver y administrar la
 
 1. Crea el subdominio, por ejemplo `encuestas.cargodeti.com`, y activa su SSL.
 2. Sube el contenido de esta carpeta a la carpeta raíz del subdominio.
-3. En `config.php` revisa que `MOODLE_URL` sea la dirección de tu Moodle.
+3. En `config.php` revisa que `MOODLE_URL` sea la dirección de tu Moodle. Si necesitas token o ruta de Moodle, copia `config.local.example.php` como `config.local.php` y ponlos ahí (o usa las variables de entorno `PANEL_MOODLE_TOKEN` y `PANEL_MOODLE_PATH`). `config.local.php` no se sube al repositorio.
 4. Abre `https://encuestas.cargodeti.com/diagnostico.php`:
    - **Conexión directa funcionando**: el panel encontró la carpeta de Moodle en el mismo servidor y habla con él sin pasar por internet. No necesita token, y el firewall o anti-bot del hosting no lo afecta.
-   - **Carpeta de Moodle no encontrada**: escribe su ruta en `MOODLE_PATH`, dentro de `config.php`. Es la carpeta que contiene el `config.php` de Moodle; en SiteGround suele ser `/home/customer/www/cargodeti.com/public_html`.
-   - **Moodle está en otro servidor**: usa el token. En Moodle entra a Administración del sitio > Cursos > Conectar panel de encuestas, pulsa el botón y copia `MOODLE_TOKEN` en `config.php`.
+   - **Carpeta de Moodle no encontrada**: escribe su ruta en `MOODLE_PATH`, dentro de `config.local.php`. Es la carpeta que contiene el `config.php` de Moodle; en SiteGround suele ser `/home/customer/www/cargodeti.com/public_html`.
+   - **Moodle está en otro servidor**: usa el token. En Moodle entra a Administración del sitio > Cursos > Conectar panel de encuestas, pulsa el botón y copia `MOODLE_TOKEN` en `config.local.php`.
 5. Abre el subdominio y crea el usuario administrador. Para comprobar que eres tú, te pide el token o, si no hay token, el código que aparece en `data/setup.php`; ese archivo se abre con el Administrador de archivos.
 6. En la pestaña **Usuarios** crea las demás cuentas:
    - **Administrador**: puede hacer todo.
@@ -18,7 +18,8 @@ Es un panel aparte, con usuario y contraseña propios, para ver y administrar la
 
 ## Archivos
 
-- `config.php`: la dirección de Moodle y, opcionalmente, la carpeta de Moodle o el token.
+- `config.php`: la dirección de Moodle y los valores por defecto. Se puede subir al repositorio.
+- `config.local.php`: el token y la carpeta de Moodle de cada servidor. No se sube al repositorio; parte de `config.local.example.php`.
 - `moodle-bridge.php`: la conexión directa con Moodle.
 - `diagnostico.php`: comprueba la conexión y dice qué falta.
 - `data/`: los usuarios del panel. Las contraseñas se guardan cifradas y los archivos no se pueden leer desde la web.

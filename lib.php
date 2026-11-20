@@ -3,7 +3,7 @@
  * Funciones del panel de encuestas (subdominio).
  *
  * Los usuarios del panel son propios (no son usuarios de Moodle). El panel habla con Moodle
- * mediante el servicio web del plugin mod_encuestamod usando el token de config.php.
+ * mediante el servicio web del plugin mod_encuestamod usando el token de config.local.php (o de la variable de entorno PANEL_MOODLE_TOKEN).
  */
 if (!defined('PANEL')) {
     http_response_code(404);
@@ -336,7 +336,7 @@ function panel_ws_url(): string {
 
 function panel_moodle_call(string $action, array $payload): array {
     if (MOODLE_TOKEN === '' || MOODLE_URL === '') {
-        throw new RuntimeException('Falta configurar MOODLE_URL y MOODLE_TOKEN en config.php.');
+        throw new RuntimeException('Falta configurar MOODLE_TOKEN en config.local.php (ver config.local.example.php).');
     }
     $fields = http_build_query([
         'wstoken' => MOODLE_TOKEN,
@@ -353,7 +353,7 @@ function panel_moodle_call(string $action, array $payload): array {
     if (is_array($resp) && isset($resp['exception'])) {
         $msg = $resp['message'] ?? 'Error de Moodle';
         if (($resp['errorcode'] ?? '') === 'invalidtoken') {
-            $msg = 'Moodle rechazó el token. Genera uno nuevo en Moodle y actualiza config.php.';
+            $msg = 'Moodle rechazó el token. Genera uno nuevo en Moodle y actualiza config.local.php.';
         } else if (($resp['errorcode'] ?? '') === 'servicenotavailable' || ($resp['errorcode'] ?? '') === 'enablewsdescription') {
             $msg = 'Los servicios web de Moodle están desactivados. Usa "Conectar panel de encuestas" en Moodle.';
         }
@@ -378,7 +378,7 @@ function panel_moodle_call(string $action, array $payload): array {
  */
 function panel_setup_secret(): array {
     if (MOODLE_TOKEN !== '') {
-        return [MOODLE_TOKEN, 'Token de Moodle (el de config.php)', 'Pega el token que pusiste en <code>config.php</code>.'];
+        return [MOODLE_TOKEN, 'Token de Moodle (el de config.local.php)', 'Pega el token que pusiste en <code>config.local.php</code>.'];
     }
     $data = panel_read('setup');
     if (empty($data['code'])) {
