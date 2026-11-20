@@ -1,0 +1,10 @@
+# Datos del panel: usuarios, contraseñas cifradas e intentos de inicio de sesión
+data/*.php
+
+# Configuración local con claves (nunca subir)
+config.local.php
+.env
+
+# Sistema
+.DS_Store
+__MACOSX/
