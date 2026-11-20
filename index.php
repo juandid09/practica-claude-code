@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!hash_equals($_SESSION['csrf'] ?? '', (string) ($_POST['csrf'] ?? ''))) {
         $error = 'La página caducó. Inténtalo de nuevo.';
     } else if ($setup) {
-        // Primer administrador: hay que demostrar que se tiene acceso a config.php (pegando el token).
+        // Primer administrador: hay que demostrar que se tiene acceso a config.local.php (pegando el token).
         try {
             if ($m = panel_locked_minutes()) {
                 throw new RuntimeException("Demasiados intentos. Espera $m minutos.");
@@ -120,7 +120,7 @@ $csrf = $_SESSION['csrf'];
     <div class="wrap">
         <?php if (MOODLE_TOKEN === '' && panel_moodle_dir() === ''): ?>
             <div class="ea-root"><div class="ea-alert ea-alert-error">No se encontró Moodle en este servidor y no hay token en
-            config.php. Abre <a href="diagnostico.php">diagnostico.php</a>.</div></div>
+            config.local.php. Abre <a href="diagnostico.php">diagnostico.php</a>.</div></div>
         <?php endif; ?>
         <div id="encuestas-app"><div class="ea-loading">Cargando…</div></div>
     </div>
