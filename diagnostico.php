@@ -50,7 +50,7 @@ th{background:#fbfbf9;font-size:.78rem;text-transform:uppercase;color:#667085}
 <p>Moodle: <code><?= panel_h(MOODLE_URL) ?></code> · IP de este servidor: <code><?= panel_h($_SERVER['SERVER_ADDR'] ?? '?') ?></code>
 · IP de <?= panel_h($host) ?>: <code><?= panel_h($host ? gethostbyname($host) : '?') ?></code><br>
 Carpeta de Moodle en este servidor: <code><?= $moodledir !== '' ? panel_h($moodledir) : 'no encontrada' ?></code>
-<?php if (defined('MOODLE_PATH') && MOODLE_PATH !== ''): ?>(definida en config.php)<?php endif; ?><br>
+<?php if (defined('MOODLE_PATH') && MOODLE_PATH !== ''): ?>(definida en la configuración)<?php endif; ?><br>
 PHP de este panel: <code><?= panel_h(PHP_VERSION) ?></code></p>
 
 <h2>1. Conexión por internet (servicio web)</h2>
@@ -72,7 +72,7 @@ if (MOODLE_TOKEN !== '') {
     }
     diag_row('Llamada con el token', $httpping ? 200 : 0, '', $httpping ? 'OK' : $httperr, (bool) $httpping);
 } else {
-    diag_row('Llamada con el token', 0, '', 'Sin token en config.php (no hace falta con la conexión directa)', null);
+    diag_row('Llamada con el token', 0, '', 'Sin token en config.local.php (no hace falta con la conexión directa)', null);
 }
 ?>
 </table>
@@ -84,7 +84,7 @@ if ($moodledir === '') {
     if ($httpping) {
         echo 'No se encontró la carpeta de Moodle en este servidor, pero la conexión por servicio web funciona: el panel ya puede trabajar.';
     } else {
-        echo 'No se encontró la carpeta de Moodle. Escríbela en <code>config.php</code>, en <code>MOODLE_PATH</code>: es la carpeta que ' .
+        echo 'No se encontró la carpeta de Moodle. Escríbela en <code>config.local.php</code>, en <code>MOODLE_PATH</code>: es la carpeta que ' .
             'contiene el <code>config.php</code> de Moodle. En SiteGround suele ser <code>/home/customer/www/' . panel_h($host) .
             '/public_html</code> (en Site Tools > Administrador de archivos verás la ruta exacta).';
         if (!$homeok) {
