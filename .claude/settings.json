@@ -1,0 +1,1 @@
+{"permissions":{"allow":["Bash(php -l:*)","Bash(git status)","Bash(git diff:*)","Bash(git log:*)"],"deny":["Read(./config.local.php)","Read(./data/**)"]},"hooks":{"PostToolUse":[{"matcher":"Edit|Write","hooks":[{"type":"command","command":"for f in *.php; do php -l \"$f\" >/dev/null || { php -l \"$f\" 1>&2; exit 2; }; done"}]}]}}
