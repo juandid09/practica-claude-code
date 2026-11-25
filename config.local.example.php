@@ -10,7 +10,7 @@ if (!defined('PANEL')) {
 }
 
 // Token del servicio "Panel de encuestas de módulo" (solo si Moodle está en OTRO servidor).
-define('MOODLE_TOKEN', 'pega-aqui-el-token-de-moodle');
+// define('MOODLE_TOKEN', 'pega-aqui-el-token-de-moodle');
 
 // Carpeta de Moodle en este servidor, si el panel no la encuentra solo.
 // define('MOODLE_PATH', '/home/customer/www/cargodeti.com/public_html');
